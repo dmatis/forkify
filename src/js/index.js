@@ -1,4 +1,4 @@
-import Search from './models/Search'
+import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
 import Likes from './models/Likes';
@@ -38,24 +38,26 @@ const controlSearch = async () => {
 
             // 5) Render results on the UI
             clearLoader();
-            searchView.renderResults(state.search.result);
+            if (state.search.result) {
+                searchView.renderResults(state.search.result);
+            }
         } catch (error) {
-            alert('Something went wrong with the search...');
+            console.log(error);
             clearLoader();
         }
     }
-}
+};
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
     controlSearch();
-})
+});
 
 // Since we don't render the pagination buttons when these event listeners are created,
 // we add a listener to the searchResPages element which DOES exist and then use the
 // '.closest()' function to find the nearest element with the class 'btn-inline' 
 elements.searchResPages.addEventListener('click', e => {
-    const btn = e.target.closest('.btn-inline')
+    const btn = e.target.closest('.btn-inline');
     if (btn) {
         const goToPage = parseInt(btn.dataset.goto, 10);
         searchView.clearResults();
@@ -95,13 +97,14 @@ const controlRecipe = async () => {
         } catch (error) {
             console.log(error);
             clearLoader();
-            alert('Error processing the recipe!')
+            alert('Error processing the recipe!');
         }
     }
-}
+};
 
 // This will call controlRecipe() whenever window loads or hash changes in URL
-['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+const windowEvents = ['hashchange', 'load'];
+windowEvents.forEach(event => window.addEventListener(event, controlRecipe));
 
 
 /**
@@ -115,8 +118,8 @@ const controlList = () => {
     state.recipe.ingredients.forEach(el => {
         const item = state.list.addItem(el.count, el.unit, el.ingredient);
         listView.renderItem(item);
-    })
-}
+    });
+};
 
 // Handle delete and update list item events
 elements.shopping.addEventListener('click', e => {
@@ -130,7 +133,7 @@ elements.shopping.addEventListener('click', e => {
         const val = parseFloat(e.target.value, 10);
         state.list.updateCount(id, val);
     }
-})
+});
 
 /**
  * LIKE CONTROLLER
@@ -157,7 +160,7 @@ const controlLike = () => {
         // Remove like from UI list
         likesView.deleteLike(currentID);
     }
-}
+};
 
 // Restore liked recipes on page load
 window.addEventListener('load', () => {
@@ -167,7 +170,7 @@ window.addEventListener('load', () => {
     likesView.toggleLikeMenu(state.likes.getNumLikes());
 
     state.likes.likes.forEach(like => likesView.renderLike(like));
-})
+});
 
 // Handle recipe button clicks
 elements.recipe.addEventListener('click', e => {
@@ -190,4 +193,4 @@ elements.recipe.addEventListener('click', e => {
         // Like controller
         controlLike();
     }
-})
+});

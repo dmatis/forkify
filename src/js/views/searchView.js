@@ -20,7 +20,7 @@ export const highlightSelected = id => {
     // Select the link attribute that contains the selected recipe id
     // Then add the results__link--active class to it
     document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
-}
+};
 
 export const limitRecipeTitle = (title, limit = 17) => {
     if (title.length > limit) {
@@ -35,7 +35,7 @@ export const limitRecipeTitle = (title, limit = 17) => {
         return `${truncatedTitle.join(' ')}...`;
     }
     return title;
-}
+};
 
 const renderRecipe = ({image_url, publisher, recipe_id, title}) => {
     // recipe: {
