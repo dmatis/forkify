@@ -1,13 +1,19 @@
 # Forkify App
 This app was created as part of the [Complete JavaScript Course](https://www.udemy.com/course/the-complete-javascript-course) on Udemy.
 
-## To Start
+## To Start the Development Server
 
 * Ensure that you have Node.JS and npm installed.
 * Clone the repository
 * `npm install`
-* `npm run start` (development build)
+* `npm run dev`
 * Go to `localhost:8080` in your browser
+
+## To Start the Production Build
+
+* `npm install`
+* `npm run build`
+* `npm run start`
 
 ## How to Use
 * Type an ingredient or food that you would like to make (ie: pizza)
